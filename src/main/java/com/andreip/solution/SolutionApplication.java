@@ -23,14 +23,12 @@ public class SolutionApplication {
         Calculator calculator = Calculator.getInstance();
         // stop the calculation and return results
 	    if (request.toLowerCase().equals("end")) {
-	    	calculator.setInProgress(false);
-	    	return calculator.getSum();
+	    	return calculator.stopAndGetSum();
         }
 
 	    // Assume request can be parsed, in other case will return code 500
 	    int num = Integer.parseInt(request);
-	    calculator.setInProgress(true);
-	    calculator.addToSum(num);
+	    calculator.startAndAddToSum(num);
 
 	    // To prevent dead locks, release request after 10 seconds
 	    int iterationLimit = 1000;

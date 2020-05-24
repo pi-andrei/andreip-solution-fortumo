@@ -36,14 +36,6 @@ public class Calculator {
     }
 
     /**
-     * Add the number to the sum
-     * @param num   number to add to the sum
-     */
-    public synchronized void addToSum(int num) {
-        sum += num;
-    }
-
-    /**
      * Return sum of all numbers
      * @return sum of numbers
      */
@@ -60,14 +52,22 @@ public class Calculator {
     }
 
     /**
-     * Set the progress. False value will save sum of numbers and reset current sum value to 0.
-     * @param inProgress    is currently in progress
+     * Stop the progress and reset current sum value to 0. Also return sum.
+     * @return sum of all numbers
      */
-    public synchronized void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
-        if (!inProgress) {
-            prevSum = sum;
-            sum = 0;
-        }
+    public synchronized int stopAndGetSum() {
+        inProgress = false;
+        prevSum = sum;
+        sum = 0;
+        return prevSum;
+    }
+
+    /**
+     * Start the summing process and if not e started and adds num to sum.
+     * @param num   number to add to the sum
+     */
+    public synchronized void startAndAddToSum(int num) {
+        inProgress = true;
+        sum+=num;
     }
 }
